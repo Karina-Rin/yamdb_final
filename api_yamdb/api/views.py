@@ -1,5 +1,4 @@
 import random
-
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db.models import Avg
@@ -14,7 +13,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework_simplejwt.tokens import AccessToken
-
 from api.filters import TitleFilter
 from api.permissions import (
     IsAdmin,
@@ -101,8 +99,10 @@ class TokenView(APIView):
         username = serializer.validated_data.get("username")
         confirm_code = serializer.validated_data.get("confirmation_code")
         user = get_object_or_404(CustomUser, username=username)
-        if (user.confirmation_code != confirm_code
-                or confirm_code == settings.CONFIRM_CODE_STUB):
+        if (
+            user.confirmation_code != confirm_code
+            or confirm_code == settings.CONFIRM_CODE_STUB
+        ):
             if confirm_code != settings.CONFIRM_CODE_STUB:
                 user.confirmation_code = settings.CONFIRM_CODE_STUB
                 user.save()

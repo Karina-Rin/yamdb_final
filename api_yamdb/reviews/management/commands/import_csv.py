@@ -22,7 +22,7 @@ CSV_FILES_DATA = {
 class Command(BaseCommand):
     help = "Imports data from csv files to database"
 
-    def import_file(self, Model, csv_file):
+    def import_file(self, model, csv_file):
         r_file = str(os.path.join(CSV_PATH, csv_file))
         with open(r_file, encoding="utf-8"):
             file_reader = csv.reader(r_file, delimiter=",")
@@ -36,5 +36,5 @@ class Command(BaseCommand):
                 count += 1
 
     def handler(self, *args, **options):
-        for csv_file, Model in CSV_FILES_DATA.items():
+        for csv_file, model in CSV_FILES_DATA.items():
             self.import_file(csv_file, Model)
