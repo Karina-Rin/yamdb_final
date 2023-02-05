@@ -42,7 +42,7 @@ jobs:
         uses: docker/build-push-action@v2 
         with:
           push: true
-          tags: karinarin/infra_actions
+          tags: karinarin/yamdb_final
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
@@ -55,7 +55,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         # passphrase: ${{ secrets.PASSPHRASE }}
         script: |
-          sudo docker pull Dvoryanoff/yamdb_final
+          sudo docker pull karinarin/yamdb_final
           sudo docker-compose stop
           sudo docker-compose rm web
           touch .env
