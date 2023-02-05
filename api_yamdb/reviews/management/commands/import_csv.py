@@ -32,9 +32,9 @@ class Command(BaseCommand):
                     fields = row
                 else:
                     data = dict(zip(fields, row))
-                    Model.objects.get_or_create(**data).save()
+                    model.objects.get_or_create(**data).save()
                 count += 1
 
     def handler(self, *args, **options):
         for csv_file, model in CSV_FILES_DATA.items():
-            self.import_file(csv_file, Model)
+            self.import_file(csv_file, model)
