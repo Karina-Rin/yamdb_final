@@ -1,6 +1,6 @@
-![yamdb_workflow](https://github.com/Karina-Rin/yamdb_final/workflows/yamdb_workflow.yaml/badge.svg)
+![yamdb_workflow](https://github.com/Karina-Rin/yamdb_final/workflows/yamdb_workflow.yml/badge.svg)
 
-# yamdb_final
+# CI и CD проекта api_yamdb
 ## Описание проекта
 Проект _YaMDb_ собирает отзывы и комментарии пользователей на произведения.
 
@@ -11,22 +11,41 @@
 число); из пользовательских оценок формируется усреднённая оценка произведения 
 — рейтинг (целое число). На одно произведение пользователь может оставить 
 только один отзыв.
+
 Пользователи могут оставлять комментарии к отзывам.
+
 Сами произведения в YaMDb не хранятся, здесь нельзя посмотреть фильм или 
 послушать музыку.
 
 Позволяет делать запросы к БД с любого устройства.
 Проект упакован в Docker контейнеры.
 
-## Шаблон наполнения env-файла
-Создайте `.env` файл с переменными окружения для работы с базой данных в 
-директории `infra/` по примеру файла `.env.sample`
+## Workflow
+* tests - Проверка кода на соответствие стандарту PEP8 (только свой код, код 
+фреймворка Django не трогаем).
+* build_and_push_to_docker_hub - Автоматическая пересборка и пуш обновлённого 
+образа на Docker Hub.
+* deploy - Автоматический деплой проекта на боевой сервер.
+* send_message - Отправка оповещения об успешном завершении процесса в 
+Telegram_bot.
 
-## Описание команд для запуска приложения в контейнерах
+## Запуск приложения
 
 Клонируем репозиторий:
 ```
-git clone https://github.com/Karina-Rin/infra_sp2.git
+git clone https://github.com/Karina-Rin/yamdb_final.git
+```
+
+Создаем и активируем виртуальное окружение, обновляем pip:
+```
+python3 -m venv venv
+. venv/bin/activate
+python3 -m pip install --upgrade pip
+```
+
+Устанавливаем зависимости:
+```
+pip install -r requirements.txt
 ```
 
 Переходим в директорию infra:
@@ -34,12 +53,12 @@ git clone https://github.com/Karina-Rin/infra_sp2.git
 cd infra
 ```
 
-Запускаем сборку контейнеров docker-compose:
+Запускаем сборку контейнеров:
 
 ```
-docker-compose up -d
+docker-compose up -d --build
 ```
-Проводим миграции: 
+Выполняем миграции: 
 
 ```
 docker-compose exec web python manage.py migrate
