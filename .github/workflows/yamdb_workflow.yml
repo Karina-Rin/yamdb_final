@@ -44,7 +44,7 @@ jobs:
       with:
         push: true
         context: ./api_yamdb/
-        tags: karinarin/yamdb_final
+        tags: karina-rin/yamdb_final
 
   deploy:
     runs-on: ubuntu-latest
