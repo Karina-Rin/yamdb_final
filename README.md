@@ -75,8 +75,7 @@ docker-compose exec web python manage.py createsuperuser
 docker-compose exec web python manage.py collectstatic --no-input
 ```
 
-## Описание команды для заполнения базы данными
-
+Описание команды для заполнения базы данными
 ```
 docker-compose exec web python manage.py loaddata fixtures.json 
 ```
