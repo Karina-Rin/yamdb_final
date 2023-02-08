@@ -42,42 +42,60 @@ python3 -m venv venv
 . venv/bin/activate
 python3 -m pip install --upgrade pip
 ```
+### Шаблон наполнения env-файла
+```
+Создайте `.env` файл с переменными окружения для работы с базой данных в 
+директории `infra/` по примеру файла `.env.sample`
+```
 
 Устанавливаем зависимости:
 ```
 pip install -r requirements.txt
 ```
 
-Переходим в директорию infra:
+## Подготовка репозитория на GitHub
+
+В репозитории на GitHub прописываем Secrets
 ```
-cd infra
+DOCKER_USERNAME - имя пользователя DockerHub
+DOCKER_PASSWORD - пароль пользователя DockerHub
+HOST - IP сервера
+USER - текущий пользователь
+SSH_KEY - приватный ssh-ключ (начало -----BEGIN OPENSSH PRIVATE KEY----- ... 
+-----END OPENSSH PRIVATE KEY----- конец)
+PASSPHRASE - кодовая фраза для ssh-ключа (если ваш ssh-ключ защищён фразой-
+паролем)
+TELEGRAM_TO - ID своего телеграм-аккаунта. Узнать можно у бота @userinfobot
+TELEGRAM_TOKEN - токен вашего бота. Получить можно у бота @BotFather
 ```
 
-Запускаем сборку контейнеров:
+### Развертывание приложения на боевом сервере
 
-```
-docker-compose up -d --build
-```
-Выполняем миграции: 
+1. Пушим проект на DockerHub. 
+При пуше в ветку main/master приложение пройдет тесты, обновит образ
+и сделает деплой на сервер.
 
+2. Подлкючаемся к боевому серверу
 ```
-docker-compose exec web python manage.py migrate
+ssh <USER>@<HOST>
 ```
-
-Создаем суперпользователя:
-
+3. Переходим в запущенный контейнер приложения:
+```
+docker container exec -it <CONTAINER ID> bash
+```
+4. Внутри контейнера выполняем миграции и собираем статику:
+```
+python manage.py collectstatic --no-input
+python manage.py migrate
+```
+5. Создаем суперпользователя
 ```
 docker-compose exec web python manage.py createsuperuser
 ```
-Собираем статику:
 
+### Адрес развернутого проекта
 ```
-docker-compose exec web python manage.py collectstatic --no-input
-```
-
-Описание команды для заполнения базы данными
-```
-docker-compose exec web python manage.py loaddata fixtures.json 
+http://158.160.18.146
 ```
 
 ## Авторы
