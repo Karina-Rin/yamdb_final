@@ -47,9 +47,9 @@ jobs:
         tags: karinarin/yamdb_final:latest
 
   deploy:
+    if: contains('refs/heads/master', 'refs/heads/main', github.ref)
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
-    if: contains(fromJson('["refs/heads/master", "refs/heads/main"]'), github.ref)
     steps:
     - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
