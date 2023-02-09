@@ -92,7 +92,7 @@ docker-compose exec web python manage.py createsuperuser
 
 ### Адрес развернутого проекта
 ```
-[http://158.160.18.146](http://158.160.18.146)
+![http://IP_боевого_сервера](http://158.160.18.146)
 ```
 
 ## Авторы
