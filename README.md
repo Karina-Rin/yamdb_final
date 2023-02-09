@@ -83,17 +83,27 @@ docker container exec -it <CONTAINER ID> bash
 4. Внутри контейнера выполняем миграции и собираем статику:
 ```
 python manage.py collectstatic --no-input
+python manage.py makemigrations
 python manage.py migrate
 ```
-5. Создаем суперпользователя:
+
+5. Наполняем БД начальными тестовыми данными:
 ```
-docker-compose exec web python manage.py createsuperuser
+python3 manage.py shell
+>>> from django.contrib.contenttypes.models import ContentType
+>>> ContentType.objects.all().delete()
+>>> quit()
+python manage.py loaddata fixtures.json
+```
+6. Создаем суперпользователя:
+```
+python manage.py createsuperuser
 ```
 
 ### Адрес развернутого проекта
-```
-![http://IP_боевого_сервера](http://158.160.18.146)
-```
+
+[http://IP_боевого_сервера]:http://62.84.120.208/admin
+
 
 ## Авторы
 Karina-Rin
