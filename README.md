@@ -102,7 +102,7 @@ python manage.py createsuperuser
 
 ### Адрес развернутого проекта
 
-[http://IP_боевого_сервера]:http://62.84.120.208/admin
+http://62.84.120.208/admin/
 
 
 ## Авторы
