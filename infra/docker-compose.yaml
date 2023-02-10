@@ -6,14 +6,14 @@ services:
     volumes:
       - db_value:/var/lib/postgresql/data/
     env_file:
-      - ./.env
+      - .env
 
   web:
     image: karinarin/api_yamdb:latest
     restart: always
     volumes:
-      - static_value:/app/yamdb_final/static/
-      - media_value:/app/yamdb_final/media/
+      - static_value:/app/static/
+      - media_value:/app/media/
     depends_on:
       - db
     env_file:

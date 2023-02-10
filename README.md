@@ -103,7 +103,7 @@ docker-compose exec web python manage.py createsuperuser
 
 ### Адрес развернутого проекта
 
-http://62.84.120.208/admin/
+http://62.84.120.208/redoc/
 
 
 ## Авторы
