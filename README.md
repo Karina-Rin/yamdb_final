@@ -80,11 +80,11 @@ ssh <USER>@<HOST>
 ```
 docker container exec -it <CONTAINER ID> bash
 ```
-4. Внутри контейнера выполняем миграции и собираем статику:
+4. Внутри контейнера собираем статику и выполняем миграции:
 ```
-python manage.py collectstatic --no-input
-python manage.py makemigrations
-python manage.py migrate
+docker-compose exec web python manage.py collectstatic --no-input
+docker-compose exec web python manage.py makemigrations
+docker-compose exec web python manage.py migrate --noinput
 ```
 
 5. Наполняем БД начальными тестовыми данными:
@@ -95,9 +95,10 @@ python3 manage.py shell
 >>> quit()
 python manage.py loaddata fixtures.json
 ```
+
 6. Создаем суперпользователя:
 ```
-python manage.py createsuperuser
+docker-compose exec web python manage.py createsuperuser
 ```
 
 ### Адрес развернутого проекта
