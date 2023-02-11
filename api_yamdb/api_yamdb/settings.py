@@ -10,7 +10,8 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+# SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = "ns6(14uyb7kn3q10kkz+=y8#k!g$$+qhs)ho+6^nzy=9xoru3g"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -64,8 +65,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "api_yamdb.wsgi.application"
 
-# Database
-
 DATABASES = {
     "default": {
         "ENGINE": os.getenv(
@@ -78,8 +77,6 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT", default=5432),
     }
 }
-
-# Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -150,5 +147,3 @@ CONFIRM_CODE_STUB = "wtPScP"
 MAX_EMAIL_LENGTH = 254
 MAX_USERNAME_LENGTH = 150
 DEFAULT_FIELD_LENGTH = 150
-
-SECRET_KEY = "ns6(14uyb7kn3q10kkz+=y8#k!g$$+qhs)ho+6^nzy=9xoru3g"
