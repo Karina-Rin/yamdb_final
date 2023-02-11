@@ -9,9 +9,7 @@ services:
       - .env
 
   web:
-    build:
-      context: ../
-      dockerfile: api_yamdb/Dockerfile
+    image: karinarin/api_yamdb
     restart: always
     volumes:
       - static_value:/app/api_yamdb/static/
